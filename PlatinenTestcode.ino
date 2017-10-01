@@ -21,9 +21,11 @@ void loop() {
    digitalWrite(spalte[s], (s==0) ? HIGH : LOW);
    for(int r = 0; r < 9; r++) {
       digitalWrite(RGB[r], LOW);
-      delay(1000);
+      delay(500);
       digitalWrite(RGB[r], HIGH);
-      delay(50);
+    
+        Serial.println(analogRead(A7));
+
     }
     digitalWrite(spalte[s], (s==0) ? LOW : HIGH);
   }
