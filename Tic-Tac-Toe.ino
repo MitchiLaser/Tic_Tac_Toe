@@ -14,14 +14,7 @@ void AllesAus( void )
 {
   for (int i = 2; i < 15; i++)
   {
-    if ((i != 6) && (i != 9) && (i != 10) && (i != 11))
-    {
-      digitalWrite(i, HIGH);
-    }
-    else
-    {
-      digitalWrite(i, LOW);
-    }
+    digitalWrite(i, LOW);
   }
 }
 
@@ -35,7 +28,7 @@ void InitVariablen( void )
   Gewinner = 0;
 }
 
-int TasteGedrueckt( void )
+int TasteGedrueckt( void )// ------------------------------------ ADC neu einlesen -----------------------------------------
 {
   int Taste = 0;
 
@@ -88,25 +81,25 @@ void AusgabeStatusLED( void )
   switch (Spieler)
   {
     case 0:
-      digitalWrite(8, HIGH);
-      digitalWrite(7, HIGH);
-      digitalWrite(5, HIGH);
-      break;
-    case 1:
-      digitalWrite(8, LOW);
-      digitalWrite(7, HIGH);
-      digitalWrite(5, HIGH);
-      break;
-    case 2:
-      digitalWrite(8, HIGH);
-      digitalWrite(7, LOW);
-      digitalWrite(5, HIGH);
-      break;
-    case 3:
-      digitalWrite(8, HIGH);
-      digitalWrite(7, HIGH);
-      digitalWrite(5, LOW);
-      break;
+        digitalWrite(5, HIGH);
+        digitalWrite(7, HIGH);
+        digitalWrite(8, HIGH);
+        break;
+      case 1:
+        digitalWrite(5, LOW);
+        digitalWrite(7, HIGH);
+        digitalWrite(8, HIGH);
+        break;
+      case 2:
+        digitalWrite(5, HIGH);
+        digitalWrite(7, LOW);
+        digitalWrite(8, HIGH);
+        break;
+      case 3:
+        digitalWrite(5, HIGH);
+        digitalWrite(7, HIGH);
+        digitalWrite(8, LOW);
+        break;
   }
 
   digitalWrite(11, HIGH);
@@ -116,247 +109,91 @@ void AusgabeStatusLED( void )
   AllesAus();
 }
 
-void AusgabeZeileUnten( void )
+void AusgabeLEDs()
 {
-  switch (Spielfeld[8])
+  for(int i = 0; i < 3; i++)
   {
-    case 0:
-      digitalWrite(2, HIGH);
-      digitalWrite(3, HIGH);
-      digitalWrite(4, HIGH);
-      break;
-    case 1:
-      digitalWrite(2, HIGH);
-      digitalWrite(3, HIGH);
-      digitalWrite(4, LOW);
-      break;
-    case 2:
-      digitalWrite(2, HIGH);
-      digitalWrite(3, LOW);
-      digitalWrite(4, HIGH);
-      break;
-    case 3:
-      digitalWrite(2, LOW);
-      digitalWrite(3, HIGH);
-      digitalWrite(4, HIGH);
-      break;
+    switch ( Spielfeld[ 3*i ] )
+    {
+      case 0:
+        digitalWrite(2, HIGH);
+        digitalWrite(3, HIGH);
+        digitalWrite(4, HIGH);
+        break;
+      case 1:
+        digitalWrite(2, LOW);
+        digitalWrite(3, HIGH);
+        digitalWrite(4, HIGH);
+        break;
+      case 2:
+        digitalWrite(2, HIGH);
+        digitalWrite(3, LOW);
+        digitalWrite(4, HIGH);
+        break;
+      case 3:
+        digitalWrite(2, HIGH);
+        digitalWrite(3, HIGH);
+        digitalWrite(4, LOW);
+        break;
+    }
+    switch ( Spielfeld[ 3*i + 1 ] )
+    {
+      case 0:
+        digitalWrite(5, HIGH);
+        digitalWrite(7, HIGH);
+        digitalWrite(8, HIGH);
+        break;
+      case 1:
+        digitalWrite(5, LOW);
+        digitalWrite(7, HIGH);
+        digitalWrite(8, HIGH);
+        break;
+      case 2:
+        digitalWrite(5, HIGH);
+        digitalWrite(7, LOW);
+        digitalWrite(8, HIGH);
+        break;
+      case 3:
+        digitalWrite(5, HIGH);
+        digitalWrite(7, HIGH);
+        digitalWrite(8, LOW);
+        break;
+    }
+    switch ( Spielfeld[ 3*i + 2 ] )
+    {
+      case 0:
+        digitalWrite(11, HIGH);
+        digitalWrite(12, HIGH);
+        digitalWrite(13, HIGH);
+        break;
+      case 1:
+        digitalWrite(11, LOW);
+        digitalWrite(12, HIGH);
+        digitalWrite(13, HIGH);
+        break;
+      case 2:
+        digitalWrite(11, HIGH);
+        digitalWrite(12, LOW);
+        digitalWrite(13, HIGH);
+        break;
+      case 3:
+        digitalWrite(11, HIGH);
+        digitalWrite(12, HIGH);
+        digitalWrite(13, LOW);
+        break;
+    }
+
+    switch(i)
+    {
+      case 0: digitalWrite(6, LOW); break;
+      case 1: digitalWrite(9, LOW); break;
+      case 2: digitalWrite(10, LOW); break;
+    }
+
+    delay(1);
+
+    AllesAus();
   }
-
-  switch (Spielfeld[7])
-  {
-    case 0:
-      digitalWrite(5, HIGH);
-      digitalWrite(7, HIGH);
-      digitalWrite(8, HIGH);
-      break;
-    case 1:
-      digitalWrite(5, HIGH);
-      digitalWrite(7, HIGH);
-      digitalWrite(8, LOW);
-      break;
-    case 2:
-      digitalWrite(5, HIGH);
-      digitalWrite(7, LOW);
-      digitalWrite(8, HIGH);
-      break;
-    case 3:
-      digitalWrite(5, LOW);
-      digitalWrite(7, HIGH);
-      digitalWrite(8, HIGH);
-      break;
-  }
-
-  switch (Spielfeld[6])
-  {
-    case 0:
-      digitalWrite(12, HIGH);
-      digitalWrite(13, HIGH);
-      digitalWrite(14, HIGH);
-      break;
-    case 1:
-      digitalWrite(12, HIGH);
-      digitalWrite(13, HIGH);
-      digitalWrite(14, LOW);
-      break;
-    case 2:
-      digitalWrite(12, HIGH);
-      digitalWrite(13, LOW);
-      digitalWrite(14, HIGH);
-      break;
-    case 3:
-      digitalWrite(12, LOW);
-      digitalWrite(13, HIGH);
-      digitalWrite(14, HIGH);
-      break;
-  }
-
-  digitalWrite(6, HIGH);
-  delay(1);
-  digitalWrite(6, LOW);
-
-  AllesAus();
-}
-
-void AusgabeZeileMitte( void )
-{
-  switch (Spielfeld[5])
-  {
-    case 0:
-      digitalWrite(2, HIGH);
-      digitalWrite(3, HIGH);
-      digitalWrite(4, HIGH);
-      break;
-    case 1:
-      digitalWrite(2, HIGH);
-      digitalWrite(3, HIGH);
-      digitalWrite(4, LOW);
-      break;
-    case 2:
-      digitalWrite(2, HIGH);
-      digitalWrite(3, LOW);
-      digitalWrite(4, HIGH);
-      break;
-    case 3:
-      digitalWrite(2, LOW);
-      digitalWrite(3, HIGH);
-      digitalWrite(4, HIGH);
-      break;
-  }
-
-  switch (Spielfeld[4])
-  {
-    case 0:
-      digitalWrite(5, HIGH);
-      digitalWrite(7, HIGH);
-      digitalWrite(8, HIGH);
-      break;
-    case 1:
-      digitalWrite(5, HIGH);
-      digitalWrite(7, HIGH);
-      digitalWrite(8, LOW);
-      break;
-    case 2:
-      digitalWrite(5, HIGH);
-      digitalWrite(7, LOW);
-      digitalWrite(8, HIGH);
-      break;
-    case 3:
-      digitalWrite(5, LOW);
-      digitalWrite(7, HIGH);
-      digitalWrite(8, HIGH);
-      break;
-  }
-
-  switch (Spielfeld[3])
-  {
-    case 0:
-      digitalWrite(12, HIGH);
-      digitalWrite(13, HIGH);
-      digitalWrite(14, HIGH);
-      break;
-    case 1:
-      digitalWrite(12, HIGH);
-      digitalWrite(13, HIGH);
-      digitalWrite(14, LOW);
-      break;
-    case 2:
-      digitalWrite(12, HIGH);
-      digitalWrite(13, LOW);
-      digitalWrite(14, HIGH);
-      break;
-    case 3:
-      digitalWrite(12, LOW);
-      digitalWrite(13, HIGH);
-      digitalWrite(14, HIGH);
-      break;
-  }
-
-  digitalWrite(9, HIGH);
-  delay(1);
-  digitalWrite(9, LOW);
-
-  AllesAus();
-}
-
-void AusgabeZeileOben( void )
-{
-  switch (Spielfeld[2])
-  {
-    case 0:
-      digitalWrite(2, HIGH);
-      digitalWrite(3, HIGH);
-      digitalWrite(4, HIGH);
-      break;
-    case 1:
-      digitalWrite(2, HIGH);
-      digitalWrite(3, HIGH);
-      digitalWrite(4, LOW);
-      break;
-    case 2:
-      digitalWrite(2, HIGH);
-      digitalWrite(3, LOW);
-      digitalWrite(4, HIGH);
-      break;
-    case 3:
-      digitalWrite(2, LOW);
-      digitalWrite(3, HIGH);
-      digitalWrite(4, HIGH);
-      break;
-  }
-
-  switch (Spielfeld[1])
-  {
-    case 0:
-      digitalWrite(5, HIGH);
-      digitalWrite(7, HIGH);
-      digitalWrite(8, HIGH);
-      break;
-    case 1:
-      digitalWrite(5, HIGH);
-      digitalWrite(7, HIGH);
-      digitalWrite(8, LOW);
-      break;
-    case 2:
-      digitalWrite(5, HIGH);
-      digitalWrite(7, LOW);
-      digitalWrite(8, HIGH);
-      break;
-    case 3:
-      digitalWrite(5, LOW);
-      digitalWrite(7, HIGH);
-      digitalWrite(8, HIGH);
-      break;
-  }
-
-  switch (Spielfeld[0])
-  {
-    case 0:
-      digitalWrite(12, HIGH);
-      digitalWrite(13, HIGH);
-      digitalWrite(14, HIGH);
-      break;
-    case 1:
-      digitalWrite(12, HIGH);
-      digitalWrite(13, HIGH);
-      digitalWrite(14, LOW);
-      break;
-    case 2:
-      digitalWrite(12, HIGH);
-      digitalWrite(13, LOW);
-      digitalWrite(14, HIGH);
-      break;
-    case 3:
-      digitalWrite(12, LOW);
-      digitalWrite(13, HIGH);
-      digitalWrite(14, HIGH);
-      break;
-  }
-
-  digitalWrite(10, HIGH);
-  delay(1);
-  digitalWrite(10, LOW);
-
-  AllesAus();
 }
 
 void PruefeGewinner( void )
@@ -423,9 +260,7 @@ void SpielGewonnen( void )
   unsigned long Counter = millis();
   while((millis() - 2000) < Counter)
   {
-    AusgabeZeileUnten();
-    AusgabeZeileMitte();
-    AusgabeZeileOben();
+    AusgabeLEDs();
   }
 
   int naechsterSpieler = Gewinner + 1;
@@ -434,10 +269,8 @@ void SpielGewonnen( void )
     naechsterSpieler = 1;
   }
   
-  while(!neuesSpiel)
+  do
   {
-    Spieler = Gewinner;
-    
     for(int i = 0; i < 9; i++)
     {
       Spielfeld[i] = Gewinner;
@@ -447,10 +280,7 @@ void SpielGewonnen( void )
     Counter = millis();
     while((millis() - 1000) < Counter)
     {
-      AusgabeStatusLED();
-      AusgabeZeileUnten();
-      AusgabeZeileMitte();
-      AusgabeZeileOben();
+      AusgabeLEDs();
 
       if(TasteGedrueckt() != 0)
       {
@@ -467,17 +297,14 @@ void SpielGewonnen( void )
     Counter = millis();
     while((millis() - 1000) < Counter)
     {
-      AusgabeStatusLED();
-      AusgabeZeileUnten();
-      AusgabeZeileMitte();
-      AusgabeZeileOben();
+      AusgabeLEDs();
 
       if(TasteGedrueckt() != 0)
       {
         neuesSpiel = true;
       }
     }
-  }
+  }while(!neuesSpiel);
   
   InitVariablen();
   Spieler = naechsterSpieler;
@@ -490,9 +317,7 @@ void SpielUnentschieden( void )
   unsigned long Counter = millis();
   while((millis() - 2000) < Counter)
   {
-    AusgabeZeileUnten();
-    AusgabeZeileMitte();
-    AusgabeZeileOben();
+    AusgabeLEDs();
   }
 
   int naechsterSpieler = Gewinner + 1;
@@ -501,7 +326,7 @@ void SpielUnentschieden( void )
     naechsterSpieler = 1;
   }
   
-  while(!neuesSpiel)
+  do
   {    
     Spielfeld[0]=1;
     Spielfeld[2]=1;
@@ -516,9 +341,7 @@ void SpielUnentschieden( void )
     Counter = millis();
     while((millis() - 1000) < Counter)
     {
-      AusgabeZeileUnten();
-      AusgabeZeileMitte();
-      AusgabeZeileOben();
+      AusgabeLEDs();
 
       if(TasteGedrueckt() != 0)
       {
@@ -539,16 +362,14 @@ void SpielUnentschieden( void )
     Counter = millis();
     while((millis() - 1000) < Counter)
     {
-      AusgabeZeileUnten();
-      AusgabeZeileMitte();
-      AusgabeZeileOben();
+      AusgabeLEDs();
 
       if(TasteGedrueckt() != 0)
       {
         neuesSpiel = true;
       }
     }
-  }
+  }while(!neuesSpiel);
   
   InitVariablen();
   Spieler = naechsterSpieler;
@@ -579,9 +400,7 @@ void loop() {
 
   AusgabeStatusLED();
 
-  AusgabeZeileUnten();
-  AusgabeZeileMitte();
-  AusgabeZeileOben();
+  AusgabeLEDs();
 
   PruefeGewinner();
 
