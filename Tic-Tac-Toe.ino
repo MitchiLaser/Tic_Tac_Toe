@@ -56,11 +56,11 @@ int TasteGedrueckt( void )// ------------------------------------ ADC neu einles
 
   // Im Folgenen werden die Werte des AD-Wandlers verglichen. daraus wird dann ermittelt, welche taste gedrückt wird
   
-  if ( (ADC_Wert > 850) && (ADC_Wert < 860) )
+  if ( (ADC_Wert > 360) && (ADC_Wert < 370) )
   {
     Taste = 0;
   }
-  if ( (ADC_Wert > 725) && (ADC_Wert < 740) )
+  if ( (ADC_Wert > 560) && (ADC_Wert < 570) )
   {
     Taste = 1;
   }
@@ -68,7 +68,7 @@ int TasteGedrueckt( void )// ------------------------------------ ADC neu einles
   {
     Taste = 2;
   }
-  if ( (ADC_Wert > 455) && (ADC_Wert < 470) )
+  if ( (ADC_Wert > 390) && (ADC_Wert < 400) )
   {
     Taste = 3;
   }
@@ -76,7 +76,7 @@ int TasteGedrueckt( void )// ------------------------------------ ADC neu einles
   {
     Taste = 4;
   }
-  if ( (ADC_Wert > 560) && (ADC_Wert < 575) )
+  if ( (ADC_Wert > 725) && (ADC_Wert < 735) )
   {
     Taste = 5;
   }
@@ -84,11 +84,11 @@ int TasteGedrueckt( void )// ------------------------------------ ADC neu einles
   {
     Taste = 6;
   }
-  if ( (ADC_Wert > 385) && (ADC_Wert < 395) )
+  if ( (ADC_Wert > 460) && (ADC_Wert < 470) )
   {
     Taste = 7;
   }
-  if ( (ADC_Wert > 355) && (ADC_Wert < 370) )
+  if ( (ADC_Wert > 845) && (ADC_Wert < 860) )
   {
     Taste = 8;
   }
@@ -110,20 +110,20 @@ void AusgabeStatusLED( void )
         digitalWrite(7, HIGH);
         digitalWrite(8, HIGH);
         break;
-      case 1: // Rot
-        digitalWrite(5, LOW);
+    case 1: // Rot
+        digitalWrite(5, HIGH);
         digitalWrite(7, HIGH);
-        digitalWrite(8, HIGH);
+        digitalWrite(8, LOW);
         break;
-      case 2: // Gruen
+    case 2: // Gruen
         digitalWrite(5, HIGH);
         digitalWrite(7, LOW);
         digitalWrite(8, HIGH);
         break;
-      case 3: // Blau
-        digitalWrite(5, HIGH);
+    case 3: // Blau
+        digitalWrite(5, LOW);
         digitalWrite(7, HIGH);
-        digitalWrite(8, LOW);
+        digitalWrite(8, HIGH);
         break;
   }
 
@@ -173,50 +173,50 @@ void AusgabeLEDs()
     // Pruefe die LEDs 1, 4 und 7
     switch ( Spielfeld[ 3*i + 1 ] )
     {
-      case 0: // alle Farben aus
+      case 0: // Allle Farben aus
         digitalWrite(5, HIGH);
         digitalWrite(7, HIGH);
         digitalWrite(8, HIGH);
         break;
-      case 1: // Rot
-        digitalWrite(5, LOW);
-        digitalWrite(7, HIGH);
-        digitalWrite(8, HIGH);
-        break;
-      case 2: // Gruen
-        digitalWrite(5, HIGH);
-        digitalWrite(7, LOW);
-        digitalWrite(8, HIGH);
-        break;
-      case 3: // Blau
+    case 1: // Rot
         digitalWrite(5, HIGH);
         digitalWrite(7, HIGH);
         digitalWrite(8, LOW);
         break;
+    case 2: // Gruen
+        digitalWrite(5, HIGH);
+        digitalWrite(7, LOW);
+        digitalWrite(8, HIGH);
+        break;
+    case 3: // Blau
+       digitalWrite(5, LOW);
+       digitalWrite(7, HIGH);
+       digitalWrite(8, HIGH);
+       break;
     }
 
     // Pruefe die LEDs 2, 5 und 8
     switch ( Spielfeld[ 3*i + 2 ] )
     {
       case 0: // alle Farben aus
-        digitalWrite(11, HIGH);
+        digitalWrite(14, HIGH);
         digitalWrite(12, HIGH);
         digitalWrite(13, HIGH);
         break;
       case 1: // Rot
-        digitalWrite(11, LOW);
-        digitalWrite(12, HIGH);
-        digitalWrite(13, HIGH);
-        break;
-      case 2: // Gruen
-        digitalWrite(11, HIGH);
+        digitalWrite(14, HIGH);
         digitalWrite(12, LOW);
         digitalWrite(13, HIGH);
         break;
+      case 2: // Gruen
+        digitalWrite(14, HIGH);
+        digitalWrite(13, HIGH);
+        digitalWrite(14, LOW);
+        break;
       case 3: // Blau
-        digitalWrite(11, HIGH);
+        digitalWrite(14, LOW);
         digitalWrite(12, HIGH);
-        digitalWrite(13, LOW);
+        digitalWrite(13, HIGH);
         break;
     }
 
@@ -224,9 +224,9 @@ void AusgabeLEDs()
     // Die Zustände an den Kathoden werden durch den Transistor invertiert
     switch(i)
     {
-      case 0: digitalWrite(6, LOW); break;
+      case 0: digitalWrite(10, LOW); break;
       case 1: digitalWrite(9, LOW); break;
-      case 2: digitalWrite(10, LOW); break;
+      case 2: digitalWrite(6, LOW); break;
     }
 
     // warte eine Millisekunde
