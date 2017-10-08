@@ -47,7 +47,7 @@ void InitVariablen( void )
 // Diese Funktion liefert zurück, welche Taste atuell gedrückt wird.
 // Alle Tasten bilden einen Spannungsteiler, mit dem das Verhältnis der Widerstände zueinander über einen AD-Wandler ausgelesen wird.
 // Falls keine Tate gedrückt wird, zieht der Pulldown-Widerstand die Spannung auf 0V
-int TasteGedrueckt( void )// ------------------------------------ ADC neu einlesen -----------------------------------------
+int TasteGedrueckt( void )
 {
   // 10 bedeutet, dass keine Taste gedrückt wird
   int Taste = 10;
@@ -199,24 +199,24 @@ void AusgabeLEDs()
     switch ( Spielfeld[ 3*i + 2 ] )
     {
       case 0: // alle Farben aus
-        digitalWrite(14, HIGH);
         digitalWrite(12, HIGH);
         digitalWrite(13, HIGH);
+        digitalWrite(14, HIGH);
         break;
       case 1: // Rot
-        digitalWrite(14, HIGH);
         digitalWrite(12, LOW);
         digitalWrite(13, HIGH);
+        digitalWrite(14, HIGH);
         break;
       case 2: // Gruen
-        digitalWrite(14, HIGH);
+        digitalWrite(12, HIGH);
         digitalWrite(13, HIGH);
         digitalWrite(14, LOW);
         break;
       case 3: // Blau
-        digitalWrite(14, LOW);
         digitalWrite(12, HIGH);
-        digitalWrite(13, HIGH);
+        digitalWrite(13, LOW);
+        digitalWrite(14, HIGH);
         break;
     }
 
@@ -378,11 +378,7 @@ void SpielUnentschieden( void )
 
   // Danach wird noch zwischengespeichert, welcher Spieler als nächstes an der Reihe wäre
   // Das ist notwendig, weil später dieser Wert verloren geht
-  int naechsterSpieler = Gewinner + 1;
-  if (naechsterSpieler > 2)
-  {
-    naechsterSpieler = 1;
-  }
+  int naechsterSpieler = Spieler;
 
   // Solange keine Taste gedrückt wird, wird nun diese Animation angezeigt
   do
